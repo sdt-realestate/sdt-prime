@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הסכם תיווך לחתימה — SDT Prime</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--dark:#0F0F0F;--dark2:#1A1A1A;--dark3:#252525;--text:#E8E4DC;--muted:#9A9590;--border:rgba(201,168,76,0.2);--border-s:rgba(201,168,76,0.55);--green:#4CAF7D}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dark);color:var(--text);font-family:'Heebo',sans-serif;font-weight:300;min-height:100vh;direction:rtl}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px}
+.hdr{text-align:center;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--border);position:relative}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:var(--gold)}
+.logo{font-family:'Frank Ruhl Libre',serif;font-size:28px;letter-spacing:4px;color:var(--gold)}
+.logo-s{font-size:11px;letter-spacing:5px;color:var(--muted);margin-bottom:14px}
+.page-title{font-size:19px;font-weight:400}
+.page-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.agent-bar{background:var(--dark3);border:1px solid var(--border-s);border-radius:6px;padding:13px 18px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center}
+.agent-name{font-size:14px;font-weight:500;color:var(--gold)}
+.agent-det{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.7}
+.license{font-size:10px;letter-spacing:2px;color:var(--gold);border:1px solid var(--border-s);padding:3px 8px;border-radius:20px}
+.section{margin-bottom:28px}
+.sec-title{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-item{background:var(--dark2);border:1px solid var(--border);border-radius:5px;padding:10px 14px}
+.info-label{font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.info-val{font-size:14px;color:var(--text);font-weight:400}
+.info-item.full{grid-column:1/-1}
+.legal-box{background:var(--dark2);border:1px solid var(--border);border-radius:6px;padding:18px 22px;margin-bottom:20px}
+.clause{display:flex;gap:10px;margin-bottom:10px;font-size:12px;color:var(--muted);line-height:1.8}
+.clause:last-child{margin-bottom:0}
+.cn{color:var(--gold);font-size:10px;font-weight:600;min-width:20px;padding-top:3px}
+.sig-section{background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:24px}
+.sig-title{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:18px}
+.canvas-wrap{background:var(--dark3);border:1px solid var(--border);border-radius:4px;position:relative;margin-bottom:10px}
+#sigCanvas{display:block;width:100%;height:150px;cursor:crosshair;border-radius:4px}
+.canvas-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;color:var(--muted);pointer-events:none;transition:opacity .3s}
+.btn-clear{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:4px;font-family:'Heebo',sans-serif;font-size:11px;cursor:pointer;transition:.2s;margin-bottom:18px}
+.btn-clear:hover{border-color:var(--muted);color:var(--text)}
+.date-line{font-size:12px;color:var(--muted);margin-bottom:18px}
+.date-line strong{color:var(--gold)}
+.btn-sign{width:100%;background:var(--gold);border:none;color:var(--dark);padding:14px;border-radius:4px;font-family:'Heebo',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:2px;transition:.2s}
+.btn-sign:hover{background:var(--gold-light)}
+
+/* Success */
+.success{display:none;text-align:center;padding:40px 24px;background:var(--dark2);border:1px solid rgba(76,175,125,0.3);border-radius:8px;margin-top:20px}
+.success-icon{font-size:52px;margin-bottom:16px}
+.success h3{font-size:20px;font-weight:500;color:var(--green);margin-bottom:8px}
+.success p{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:24px}
+.download-btn{display:inline-block;background:var(--gold);color:var(--dark);padding:12px 28px;border-radius:4px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:1px;border:none;transition:.2s;margin:4px}
+.download-btn:hover{background:var(--gold-light)}
+.wa-btn{display:inline-block;background:#25D366;color:#fff;padding:12px 28px;border-radius:4px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:1px;border:none;transition:.2s;margin:4px}
+
+/* Loading */
+.loading{text-align:center;padding:60px 20px}
+.loading-spin{width:40px;height:40px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:13px;color:var(--muted)}
+
+/* Error */
+.error-msg{text-align:center;padding:40px;color:var(--muted)}
+.error-msg h3{color:#E24B4A;margin-bottom:8px}
+
+.client-input{background:#1A1A1A;border:1px solid rgba(201,168,76,0.3);border-radius:4px;padding:8px 12px;color:#E8E4DC;font-family:Heebo,sans-serif;font-size:13px;width:100%;outline:none;direction:rtl;margin-top:4px}
+.client-input:focus{border-color:#C9A84C}
+@media(max-width:560px){.info-grid{grid-template-columns:1fr}.agent-bar{flex-direction:column;gap:8px;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <div class="logo">SDT PRIME</div>
+    <div class="logo-s">נדל"ן · תיווך מקצועי</div>
+    <div class="page-title">הסכם הזמנה לביצוע תיווך</div>
+    <div class="page-sub">לפי חוק המתווכים במקרקעין, תשנ"ו-1996</div>
+  </div>
+
+  <!-- Loading state -->
+  <div class="loading" id="loadingState">
+    <div class="loading-spin"></div>
+    <p>טוען הסכם...</p>
+  </div>
+
+  <!-- Error state -->
+  <div class="error-msg" id="errorState" style="display:none">
+    <h3>לינק לא תקין</h3>
+    <p>נא לפנות ל-SDT Prime לקבלת לינק חדש<br>050-244-8682</p>
+  </div>
+
+  <!-- Main content -->
+  <div id="mainContent" style="display:none">
+
+    <div class="agent-bar">
+      <div>
+        <div class="agent-name">דורון טואיטו</div>
+        <div class="agent-det">050-244-8682 · shayt.l.y.d@gmail.com<br>SDT Prime נדל"ן</div>
+      </div>
+      <div class="license">רישיון מס׳ 3218472</div>
+    </div>
+
+    <!-- Client info - input fields -->
+    <div class="section">
+      <div class="sec-title">פרטי הלקוח — נא למלא</div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">שם מלא *</div><input id="d-name" type="text" class="client-input" placeholder="שם פרטי ושם משפחה"></div>
+        <div class="info-item"><div class="info-label">מספר זהות *</div><input id="d-id" type="text" class="client-input" placeholder="000000000" maxlength="9"></div>
+        <div class="info-item"><div class="info-label">טלפון *</div><input id="d-phone" type="tel" class="client-input" placeholder="05X-XXXXXXX"></div>
+        <div class="info-item"><div class="info-label">אימייל</div><input id="d-email" type="email" class="client-input" placeholder="example@gmail.com"></div>
+      </div>
+    </div>
+
+    <!-- Property info -->
+    <div class="section">
+      <div class="sec-title">פרטי הנכס</div>
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">כתובת</div><div class="info-val" id="d-addr">—</div></div>
+        <div class="info-item"><div class="info-label">הצד בעסקה</div><div class="info-val" id="d-side">—</div></div>
+        <div class="info-item"><div class="info-label">סוג עסקה</div><div class="info-val" id="d-deal">—</div></div>
+        <div class="info-item"><div class="info-label">סוג נכס</div><div class="info-val" id="d-type">—</div></div>
+        <div class="info-item"><div class="info-label">מחיר</div><div class="info-val" id="d-price">—</div></div>
+        <div class="info-item"><div class="info-label">חדרים</div><div class="info-val" id="d-rooms">—</div></div>
+        <div class="info-item"><div class="info-label">קומה</div><div class="info-val" id="d-floor">—</div></div>
+        <div class="info-item"><div class="info-label">מ"ר</div><div class="info-val" id="d-sqm">—</div></div>
+        <div class="info-item full" id="d-notes-wrap" style="display:none"><div class="info-label">הערות</div><div class="info-val" id="d-notes">—</div></div>
+      </div>
+    </div>
+
+    <!-- Commission -->
+    <div class="section">
+      <div class="sec-title">דמי תיווך</div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">שיעור</div><div class="info-val" id="d-comm">—</div></div>
+        <div class="info-item"><div class="info-label">גביה מ</div><div class="info-val" id="d-from">—</div></div>
+        <div class="info-item full"><div class="info-label">מועד תשלום</div><div class="info-val" id="d-when">—</div></div>
+      </div>
+    </div>
+
+    <!-- Terms -->
+    <div class="section">
+      <div class="sec-title">תנאי ההסכם</div>
+      <div class="legal-box">
+        <div class="clause"><span class="cn">1.</span><span>הלקוח מזמין את המתווך לבצע פעולות תיווך למציאת צד שני לעסקה המפורטת לעיל, ומתחייב לשלם דמי תיווך כמפורט, בתנאי שהמתווך יהיה הגורם היעיל שהביא לכריתת ההסכם.</span></div>
+        <div class="clause"><span class="cn">2.</span><span>המתווך מחזיק ברישיון תיווך במקרקעין בתוקף, ומתחייב לפעול בנאמנות, הגינות ומקצועיות.</span></div>
+        <div class="clause"><span class="cn">3.</span><span>המתווך לא יהיה זכאי לדמי תיווך אם העסקה לא תושלם בפועל, או אם לא היה הגורם היעיל שהביא להתקשרות.</span></div>
+        <div class="clause"><span class="cn">4.</span><span>אם המתווך מעניק שירותים לשני הצדדים בעסקה — יידע את הלקוח על כך מראש בכתב.</span></div>
+        <div class="clause"><span class="cn">5.</span><span>הסכם זה אינו כולל בלעדיות. לקבלת בלעדיות יש לחתום על הסכם בלעדיות נפרד.</span></div>
+        <div class="clause"><span class="cn">6.</span><span>הלקוח מאשר כי קרא והבין את תנאי הסכם זה, וכי לא הופעלה עליו כל לחץ לחתום עליו.</span></div>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="sig-section">
+      <div class="sig-title">חתימת הלקוח</div>
+      <div class="canvas-wrap">
+        <canvas id="sigCanvas"></canvas>
+        <div class="canvas-hint" id="canvasHint">חתום כאן באצבע או בעכבר</div>
+      </div>
+      <button class="btn-clear" onclick="clearSig()">נקה חתימה</button>
+      <div class="date-line">תאריך חתימה: <strong id="todayDate"></strong></div>
+      <button class="btn-sign" onclick="submitSignature()">אשר וחתום על ההסכם ←</button>
+    </div>
+
+    <div class="success" id="successSection">
+      <div class="success-icon">✅</div>
+      <h3>ההסכם נחתם בהצלחה!</h3>
+      <p style="margin-bottom:8px">תודה! כעת שלח את ההסכם החתום למתווך:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;max-width:300px;margin:0 auto">
+        <button class="download-btn" onclick="downloadAndWhatsapp()" style="width:100%;font-size:14px;padding:14px">
+          📲 הורד ושלח בוואטסאפ ל-SDT Prime
+        </button>
+        <button class="download-btn" onclick="downloadCopy()" style="width:100%;background:#1A1A1A;border:1px solid rgba(201,168,76,0.4);color:#C9A84C">
+          ⬇ הורד עותק בלבד
+        </button>
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:var(--muted)">
+        <strong style="color:var(--text)">דורון טואיטו | SDT Prime</strong><br>
+        050-244-8682
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+let contractData = null;
+let screenshotUrl = null;
+let hasSig = false;
+
+// Parse URL params
+function loadData(){
+  const params = new URLSearchParams(window.location.search);
+
+  // גרסה חדשה — פרמטרים קצרים
+  const addr = params.get('a');
+  const side = params.get('sd');
+  const deal = params.get('d');
+  const cn   = params.get('cn');
+
+  if (addr || deal || cn) {
+    contractData = {
+      client: { name: cn||'', id:'', phone:'', email:'', address:'' },
+      property: {
+        address: addr||'', deal: deal||'', type: params.get('t')||'',
+        price: params.get('p')||'', rooms: params.get('r')||'',
+        floor: params.get('f')||'', sqm: params.get('s')||'',
+        notes: params.get('n')||''
+      },
+      commission: {
+        rate: params.get('c')||'2% + מע"מ',
+        from: params.get('cf')||'המוכר',
+        when: 'לאחר חתימת הסכם מכירה'
+      },
+      agent: { name:'דורון טואיטו', license:'3218472', company:'SDT Prime', phone:'050-244-8682', email:'shayt.l.y.d@gmail.com' }
+    };
+    populateData();
+    return;
+  }
+
+  // גרסה ישנה — token
+  const token = params.get('token');
+  if (!token){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    return;
+  }
+  try {
+    const padded = token + '='.repeat((4 - token.length % 4) % 4);
+    contractData = JSON.parse(decodeURIComponent(escape(atob(padded))));
+    populateData();
+  } catch(e){
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+  }
+}
+
+function populateData(){
+  const d = contractData;
+  const c = d.client, p = d.property, com = d.commission;
+
+  // פרטי לקוח — הלקוח ממלא בעצמו, רק שם מוכנס מראש
+  if (c.name) document.getElementById('d-name').value = c.name;
+  document.getElementById('d-addr').textContent = p.address || '—';
+  document.getElementById('d-side').textContent = p.side || '—';
+  document.getElementById('d-deal').textContent = p.deal || '—';
+  document.getElementById('d-type').textContent = p.type || '—';
+  document.getElementById('d-price').textContent = p.price || '—';
+  document.getElementById('d-rooms').textContent = p.rooms || '—';
+  document.getElementById('d-floor').textContent = p.floor || '—';
+  document.getElementById('d-sqm').textContent = p.sqm ? p.sqm + ' מ"ר' : '—';
+  document.getElementById('d-comm').textContent = com.rate || '—';
+  document.getElementById('d-from').textContent = com.from || '—';
+  document.getElementById('d-when').textContent = com.when || '—';
+
+  if (p.notes){
+    document.getElementById('d-notes').textContent = p.notes;
+    document.getElementById('d-notes-wrap').style.display = 'block';
+  }
+
+  document.getElementById('loadingState').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'block';
+}
+
+// Date
+const now = new Date();
+const dateStr = now.toLocaleDateString('he-IL', { year:'numeric', month:'long', day:'numeric' });
+document.getElementById('todayDate').textContent = dateStr;
+
+// Canvas
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+
+function resizeCanvas(){
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width; canvas.height = 150;
+}
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+
+function getPos(e){
+  const rect = canvas.getBoundingClientRect();
+  if (e.touches) return {x:e.touches[0].clientX-rect.left,y:e.touches[0].clientY-rect.top};
+  return {x:e.clientX-rect.left,y:e.clientY-rect.top};
+}
+
+canvas.addEventListener('mousedown',e=>{drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);document.getElementById('canvasHint').style.opacity='0';hasSig=true;});
+canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;ctx.lineCap='round';ctx.stroke();});
+canvas.addEventListener('mouseup',()=>drawing=false);
+canvas.addEventListener('mouseleave',()=>drawing=false);
+canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=getPos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);document.getElementById('canvasHint').style.opacity='0';hasSig=true;},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=getPos(e);ctx.lineTo(p.x,p.y);ctx.strokeStyle='#C9A84C';ctx.lineWidth=2;ctx.lineCap='round';ctx.stroke();},{passive:false});
+canvas.addEventListener('touchend',()=>drawing=false);
+
+function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;document.getElementById('canvasHint').style.opacity='1';}
+
+async function submitSignature(){
+  const clientName = document.getElementById('d-name').value.trim();
+  const clientId = document.getElementById('d-id').value.trim();
+  const clientPhone = document.getElementById('d-phone').value.trim();
+  if (!clientName){ alert('נא למלא שם'); return; }
+  if (!clientId){ alert('נא למלא מספר זהות'); return; }
+  if (!clientPhone){ alert('נא למלא טלפון'); return; }
+  if (!hasSig){ alert('נא לחתום לפני האישור'); return; }
+  if (!contractData){ alert('שגיאה — נא לרענן'); return; }
+  contractData.client.name = clientName;
+  contractData.client.id = clientId;
+  contractData.client.phone = clientPhone;
+  contractData.client.email = document.getElementById('d-email').value.trim();
+
+  const sigData = canvas.toDataURL('image/png');
+
+  // Show success first
+  document.getElementById('successSection').style.display = 'block';
+  document.querySelector('.sig-section').style.opacity = '0.4';
+  document.querySelector('.sig-section').style.pointerEvents = 'none';
+  document.getElementById('successSection').scrollIntoView({behavior:'smooth'});
+
+  // Take screenshot
+  setTimeout(async () => {
+    const c = await html2canvas(document.querySelector('.wrap'), {backgroundColor:'#0F0F0F',scale:2,useCORS:true});
+    screenshotUrl = c.toDataURL('image/png');
+
+    // Send to Apps Script
+    const params = new URLSearchParams(window.location.search);
+    const scriptUrl = params.get('script') || contractData.scriptUrl || '';
+    if (scriptUrl){
+      try {
+        await fetch(scriptUrl, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({
+            action: 'contractSigned',
+            data: contractData,
+            signature: sigData,
+            screenshot: screenshotUrl,
+            signedAt: new Date().toISOString()
+          })
+        });
+      } catch(e){ console.log('Send error:', e); }
+    }
+  }, 600);
+}
+
+function downloadCopy(){
+  if (!screenshotUrl){ alert('המתן רגע ונסה שוב'); return; }
+  const name = contractData?.client?.name || 'הסכם';
+  const a = document.createElement('a');
+  a.href = screenshotUrl;
+  a.download = 'הסכם_תיווך_' + name + '_' + dateStr + '.png';
+  a.click();
+}
+
+function whatsappAgent(){
+  const name = contractData?.client?.name || '';
+  const prop = contractData?.property?.address || '';
+  const msg = encodeURIComponent('שלום דורון 👋\n\n' + name + ' חתם על הסכם התיווך.\n🏠 נכס: ' + prop + '\n📅 תאריך: ' + dateStr + '\n\nמצורף צילום ההסכם החתום.');
+  location.href = 'https://wa.me/972502448682?text=' + msg;
+}
+
+function downloadAndWhatsapp(){
+  if (!screenshotUrl){ alert('המתן רגע ונסה שוב'); return; }
+  // הורד את הצילום
+  const name = contractData?.client?.name || 'הסכם';
+  const a = document.createElement('a');
+  a.href = screenshotUrl;
+  a.download = 'הסכם_חתום_' + name + '.png';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  // אחרי שנייה פתח וואטסאפ
+  setTimeout(() => { whatsappAgent(); }, 1200);
+}
+
+loadData();
+</script>
+</body>
+</html>
