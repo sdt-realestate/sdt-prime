@@ -329,7 +329,7 @@ async function sendContract(){
 function buildSignLink(data) {
   const token = btoa(JSON.stringify(data)).replace(/=/g,'');
   // שנה לכתובת האמיתית שלך
-  const baseUrl = window.location.href.replace('שליחת_הסכם_מתווך.html', 'הסכם_תיווך_לחתימה.html');
+  const baseUrl = 'https://sdt-realestate.github.io/sdt-prime/2-client-sign.html';
   return baseUrl + '?token=' + token;
 }
 
@@ -337,19 +337,26 @@ function sendWhatsapp() {
   const name = document.getElementById('cName').value.trim();
   const phone = document.getElementById('cPhone').value.trim();
   const addr = document.getElementById('pAddress').value.trim();
-  const deal = document.getElementById('pDeal').value;
+  const deal = document.getElementById('pDeal').value || 'תיווך';
   const comm = document.getElementById('comm').value;
 
   if (!name) { alert('נא למלא שם לקוח'); return; }
   if (!addr) { alert('נא למלא כתובת נכס'); return; }
 
-  const data = collectData();
-  if (!data) return;
+  // בנה token פשוט לחתימה
+  const tokenData = {
+    token: 'sdt_' + Date.now(),
+    timestamp: new Date().toISOString(),
+    client: { name, phone, email: document.getElementById('cEmail').value.trim(), id: document.getElementById('cId').value.trim(), address: document.getElementById('cAddress').value.trim() },
+    property: { address: addr, deal, type: document.getElementById('pType').value, price: document.getElementById('pPrice').value.trim(), rooms: document.getElementById('pRooms').value.trim(), floor: document.getElementById('pFloor').value.trim(), sqm: document.getElementById('pSqm').value.trim(), notes: document.getElementById('pNotes').value.trim() },
+    commission: { rate: comm, from: document.getElementById('commFrom').value, when: document.getElementById('commWhen').value },
+    agent: AGENT
+  };
 
-  const signLink = buildSignLink(data);
+  const token = btoa(unescape(encodeURIComponent(JSON.stringify(tokenData)))).replace(/=/g,'');
+  const signLink = 'https://sdt-realestate.github.io/sdt-prime/2-client-sign.html?token=' + token;
   const msg = buildWhatsappMsg(name, addr, deal, comm, signLink);
 
-  // שמור לשימוש מאוחר
   window._lastSignLink = signLink;
   window._lastClientName = name;
   window._lastClientPhone = phone;
@@ -357,16 +364,10 @@ function sendWhatsapp() {
   if (phone) {
     const intlPhone = phone.replace(/[^0-9]/g,'');
     const phoneFormatted = intlPhone.startsWith('0') ? '972' + intlPhone.slice(1) : intlPhone;
-    window.open('https://wa.me/' + phoneFormatted + '?text=' + encodeURIComponent(msg), '_blank');
+    location.href = 'https://wa.me/' + phoneFormatted + '?text=' + encodeURIComponent(msg);
   } else {
-    // בלי מספר — פתח וואטסאפ ללא מספר עם ההודעה
-    window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    location.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
   }
-
-  // שמור לינק לשימוש מאוחר
-  window._lastSignLink = signLink;
-  window._lastClientName = name;
-  window._lastClientPhone = phone;
 }
 
 function buildWhatsappMsg(name, addr, deal, comm, link) {

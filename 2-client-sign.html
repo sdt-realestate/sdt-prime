@@ -192,7 +192,7 @@ function loadData(){
   try {
     // Restore padding
     const padded = token + '='.repeat((4 - token.length % 4) % 4);
-    contractData = JSON.parse(atob(padded));
+    contractData = JSON.parse(decodeURIComponent(escape(atob(padded))));
     populateData();
   } catch(e){
     document.getElementById('loadingState').style.display = 'none';
@@ -279,7 +279,7 @@ async function submitSignature(){
 
     // Send to Apps Script
     const params = new URLSearchParams(window.location.search);
-    const scriptUrl = params.get('script') || contractData.scriptUrl;
+    const scriptUrl = params.get('script') || contractData.scriptUrl || '';
     if (scriptUrl){
       try {
         await fetch(scriptUrl, {
