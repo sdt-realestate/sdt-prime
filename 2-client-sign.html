@@ -281,7 +281,8 @@ async function submitSignature(){
     try {
       fetch(SCRIPT_URL, {
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        mode:'no-cors',
+        headers:{'Content-Type':'text/plain'},
         body: JSON.stringify({action:'saveContract', clientName:name, propAddress:contractData.property.address, signedAt:new Date().toISOString(), imageData:screenshotUrl})
       });
     } catch(e){}
